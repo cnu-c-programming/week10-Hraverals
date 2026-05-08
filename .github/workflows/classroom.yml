@@ -1,6 +1,7 @@
 name: Autograding Tests
 'on':
-
+- push
+- repository_dispatch
 permissions:
   checks: write
   actions: read
@@ -21,6 +22,8 @@ jobs:
         command: "./a"
         input: ''
         expected-output: '16 13
+
+          '
         comparison-method: contains
         timeout: 10
         max-score: 1
@@ -51,6 +54,7 @@ jobs:
         input: ''
         expected-output: |
           .*
+          update_ptr
         comparison-method: regex
         timeout: 10
         max-score: 1
@@ -63,6 +67,8 @@ jobs:
         command: "./a"
         input: ''
         expected-output: |-
+          .+
+          .+
         comparison-method: regex
         timeout: 10
         max-score: 1
@@ -75,6 +81,10 @@ jobs:
         command: "./a"
         input: ''
         expected-output: |
+          c3
+          f5
+          48
+          40
         comparison-method: contains
         timeout: 10
         max-score: 1
@@ -87,6 +97,8 @@ jobs:
         command: "./a"
         input: ''
         expected-output: 'current mode: 5
+
+          '
         comparison-method: contains
         timeout: 10
         max-score: 1
@@ -98,7 +110,19 @@ jobs:
         setup-command: gcc ./code/3-1.c -o ./a
         command: "./a"
         input: |
+          add kim 100
+          add lee 80
+          add park 60
+          print
+          delete lee
+          print
+          quit
         expected-output: |
+          kim 100
+          lee 80
+          park 60
+          kim 100
+          park 60
         comparison-method: contains
         timeout: 10
         max-score: 1
